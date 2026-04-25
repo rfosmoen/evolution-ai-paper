@@ -555,14 +555,7 @@ That work is underway. The chalkboard does not just stay. It keeps getting writt
 
 The table below outlines the current state of memory implementation across major AI systems, alongside our assessment of what a complete memory architecture requires. It reflects the landscape as we encountered it when this project began — a field where persistent, multi-layered memory was either absent or incomplete across every major platform.
 
-| Platform | Continues Chat | Persistent & Realtime Memory Search | File System Tools | News Between Sessions | CE Between Sessions |
-|----------|---------------|--------------------------------------|-------------------|-----------------------|---------------------|
-| Claude (Anthropic) — Native | Limited | No | Yes | No | No |
-| Claude + Evolution AI System | Yes | Yes | Yes | Yes | Yes |
-| Google Antigravity IDE | Yes | Yes | Yes | No | No |
-| ChatGPT (OpenAI) | Limited | No | No | No | No |
-| Microsoft CoPilot | Limited | No | No | No | No |
-| Google Gemini | Limited | No | No | No | No |
+![Figure X9 — Memory system landscape comparison across major AI platforms](figures/Figure-X9-Appendix-A.png)
 
 ---
 
