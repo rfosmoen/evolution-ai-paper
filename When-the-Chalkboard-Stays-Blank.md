@@ -213,7 +213,10 @@ The integration with the Read Memory protocol is step 8 — the final step befor
 
 One detail worth noting: a semantic result snippet is explicitly not a substitute for reading the full log. This distinction is written into the Read Memory checklist in [MEMORY.md](http://MEMORY.md) itself. Retrieval surfaces what to read. Reading is still required *and* performed.
 
+<div align="center">
 <img src="figures/Figure-X4.png" width="75%">
+<br><em>Figure 2. — Semantic search architecture: how session logs become embeddings, how queries surface deep history, and how results integrate with the Read Memory protocol.</em>
+</div>
 
 ### Component B: Realtime Active Memory (RAM)
 
@@ -239,7 +242,10 @@ Obsidian, a markdown-based personal knowledge management tool, currently provide
 
 This is the direction the system is moving: from a memory layer that keeps Claude current, toward a knowledge layer that accumulates and connects everything learned over the entire working relationship. The session logs, CE log, Notion databases, and technical discoveries are the raw material. [MEMORY.md](http://MEMORY.md) is the curated core. The knowledge base is where that material becomes permanent, searchable, and connected.
 
+<div align="center">
 <img src="figures/Figure-X5.png" width="75%">
+<br><em>Figure 3. — The PKM knowledge graph: <a href="http://MEMORY.md">MEMORY.md</a> at center, connected to session logs, commitments, CE status, and knowledge documents via wikilinks.</em>
+</div>
 
 ### The Newspaper: Temporal Awareness Made Real
 
@@ -255,7 +261,10 @@ The system includes a backfill mechanism: if the scheduled run is missed — bec
 
 This is, to our knowledge, an original architectural pattern: ambient situational awareness maintained automatically between sessions, rather than depending entirely on what the human explicitly provides. The AI does not wait to be told what has happened. It already knows.
 
+<div align="center">
 <img src="figures/Figure-X6.png" width="75%">
+<br><em>Figure 4. — The Newspaper system: how the daily briefing is built, scheduled, and delivered as step 4 of the Read Memory protocol.</em>
+</div>
 
 ### Continuing Education
 
@@ -283,7 +292,10 @@ The final bucket is Flex and Standby at 5%. This is a curated, always-stocked li
 
 The Flex/Standby list is subject to a standing minimum: at least three active topics must be present at all times. This floor is enforced in two ways. First, it is a hard gate at every scheduled [MEMORY.md](http://MEMORY.md) joint review — the review does not close until the list has been checked and replenished if needed. Second, if a CE run exhausts the list below three topics between reviews, the run writes a ⚠️ STANDBY LOW flag to the CE status file, which Read Memory surfaces at the next session open. The list is never allowed to run dry.
 
+<div align="center">
 <img src="figures/Figure-X7.png" width="75%">
+<br><em>Figure 5. — CE framework allocation: how the research budget is distributed across eight buckets.</em>
+</div>
 
 #### Search Timing
 
@@ -313,7 +325,10 @@ Five rules govern when CE runs:
 - If either pool falls below fifty percent, CE does not run — full stop, no queue, no deferral, try again at the next scheduled window.
 - The fifth rule is smarter than a flat skip. The Claude Usage app provides a real-time countdown to the next session reset. If usage is above fifty percent but the reset is less than thirty minutes away, CE does not skip — it waits for the reset and runs on fresh capacity. Skipping because capacity was about to replenish would be wasteful. The system knows the difference.
 
+<div align="center">
 <img src="figures/Figure-X8.png" width="75%">
+<br><em>Figure 6. — CE resource monitoring: how both pools are checked, what triggers a skip, and how the smart reset-time rule prevents unnecessary skips.</em>
+</div>
 
 #### The Resource Failsafe
 
