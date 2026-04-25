@@ -154,8 +154,6 @@ Together, they represent something no platform — commercial or open source —
 
 Persistent System Memory is the foundation layer — always on, always complete, always loaded before any work begins. It does not adapt to the conversation. It does not respond to individual messages. It is a fixed, authoritative record of everything that matters about the working relationship: decisions made, commitments held, lessons learned, projects active, and context accumulated across every session that came before. PSM answers one question with certainty at the start of every session: what does Claude need to know to be a fully informed partner right now? The five layers below are the architecture of that answer.
 
-![Figure X4 — The four-layer Persistent System Memory architecture](figures/Figure-X4.png)
-
 #### Layer 1: Session Logs — The Raw Record
 
 Every working session produces a dated .md log file stored at a consistent local path. These logs capture the full context of what was discussed, decided, built, and learned. They are the raw material — unfiltered, complete, and permanent.
@@ -180,8 +178,6 @@ Three databases in a Notion workspace called the Claude Knowledge and Projects H
 
 **Technical Discoveries and Lessons Learned** is a record of what has been figured out the hard way: configuration details, failure modes, workarounds, architectural choices and the reasoning behind them. This is institutional knowledge. It compounds. The tenth session that touches a given subsystem benefits from every lesson the previous nine produced.
 
-![Figure X5 — The Open Commitments tracking system](figures/Figure-X5.png)
-
 #### Layer 4: The Read Memory Protocol — The Activation Mechanism
 
 The four layers are only valuable if they are actually used at the start of each session. The Read Memory protocol formalizes this. New sessions as well as the keywords "Read Memory" both trigger a specific eight-step sequence, executed in order, before any work begins:
@@ -197,7 +193,7 @@ The four layers are only valuable if they are actually used at the start of each
 
 The sequence only takes seconds but the benefits are profound — Claude arrives at every session fully loaded with current context, active obligations, recent history, and the accumulated knowledge of every session that came before it. This sequence is, arguably, the most important single component in the entire system — a deterministic boot sequence for AI context. The checklist is not separate documentation. It lives at the top of [MEMORY.md](http://MEMORY.md) itself, so the first thing Claude reads when executing the protocol is the protocol's own completion criteria. The system is self-documenting at the moment of activation.
 
-![Figure X3 — The Read Memory Protocol: eight-step session activation sequence](figures/Figure-X3.png)
+<img src="figures/Figure-X3.png" width="75%">
 
 #### Layer 5: The Semantic Search Layer
 The four-layer system described above solves continuity within the most recent sessions. What it does not solve — what no recency-based retrieval system can solve — is depth.
@@ -213,6 +209,8 @@ The indexer script — [**semantic-index.py**](http://semantic-index.py) — has
 The integration with the Read Memory protocol is step 8 — the final step before any work begins. It runs after the recency window is established, so the result is additive: recent logs provide current context, the semantic query provides historical depth. Neither replaces the other.
 
 One detail worth noting: a semantic result snippet is explicitly not a substitute for reading the full log. This distinction is written into the Read Memory checklist in [MEMORY.md](http://MEMORY.md) itself. Retrieval surfaces what to read. Reading is still required *and* performed.
+
+<img src="figures/Figure-X4.png" width="75%">
 
 ### Component B: Realtime Active Memory (RAM)
 
@@ -238,6 +236,8 @@ Obsidian, a markdown-based personal knowledge management tool, currently provide
 
 This is the direction the system is moving: from a memory layer that keeps Claude current, toward a knowledge layer that accumulates and connects everything learned over the entire working relationship. The session logs, CE log, Notion databases, and technical discoveries are the raw material. [MEMORY.md](http://MEMORY.md) is the curated core. The knowledge base is where that material becomes permanent, searchable, and connected.
 
+<img src="figures/Figure-X5.png" width="75%">
+
 ### The Newspaper: Temporal Awareness Made Real
 
 The memory system described above solves continuity within and across sessions that the human initiates. But it does not address what happens in the gaps — the hours or days when the human is not working with Claude, but the world is still moving.
@@ -252,7 +252,7 @@ The system includes a backfill mechanism: if the scheduled run is missed — bec
 
 This is, to our knowledge, an original architectural pattern: ambient situational awareness maintained automatically between sessions, rather than depending entirely on what the human explicitly provides. The AI does not wait to be told what has happened. It already knows.
 
-![Figure X6 — The Newspaper system architecture](figures/Figure-X6.png)
+<img src="figures/Figure-X6.png" width="75%">
 
 ### Continuing Education
 
@@ -280,7 +280,7 @@ The final bucket is Flex and Standby at 5%. This is a curated, always-stocked li
 
 The Flex/Standby list is subject to a standing minimum: at least three active topics must be present at all times. This floor is enforced in two ways. First, it is a hard gate at every scheduled [MEMORY.md](http://MEMORY.md) joint review — the review does not close until the list has been checked and replenished if needed. Second, if a CE run exhausts the list below three topics between reviews, the run writes a ⚠️ STANDBY LOW flag to the CE status file, which Read Memory surfaces at the next session open. The list is never allowed to run dry.
 
-![Figure X7 — CE resource allocation by bucket](figures/Figure-X7.png)
+<img src="figures/Figure-X7.png" width="75%">
 
 #### Search Timing
 
@@ -310,7 +310,7 @@ Five rules govern when CE runs:
 - If either pool falls below fifty percent, CE does not run — full stop, no queue, no deferral, try again at the next scheduled window.
 - The fifth rule is smarter than a flat skip. The Claude Usage app provides a real-time countdown to the next session reset. If usage is above fifty percent but the reset is less than thirty minutes away, CE does not skip — it waits for the reset and runs on fresh capacity. Skipping because capacity was about to replenish would be wasteful. The system knows the difference.
 
-![Figure X8 — Resource pool management and CE run rules](figures/Figure-X8.png)
+<img src="figures/Figure-X8.png" width="75%">
 
 #### The Resource Failsafe
 
@@ -555,7 +555,7 @@ That work is underway. The chalkboard does not just stay. It keeps getting writt
 
 The table below outlines the current state of memory implementation across major AI systems, alongside our assessment of what a complete memory architecture requires. It reflects the landscape as we encountered it when this project began — a field where persistent, multi-layered memory was either absent or incomplete across every major platform.
 
-![Figure X9 — Memory system landscape comparison across major AI platforms](figures/Figure-X9-Appendix-A.png)
+<img src="figures/Figure-X9-Appendix-A.png" width="75%">
 
 ---
 
