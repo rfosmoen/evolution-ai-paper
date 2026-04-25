@@ -193,7 +193,10 @@ The four layers are only valuable if they are actually used at the start of each
 
 The sequence only takes seconds but the benefits are profound — Claude arrives at every session fully loaded with current context, active obligations, recent history, and the accumulated knowledge of every session that came before it. This sequence is, arguably, the most important single component in the entire system — a deterministic boot sequence for AI context. The checklist is not separate documentation. It lives at the top of [MEMORY.md](http://MEMORY.md) itself, so the first thing Claude reads when executing the protocol is the protocol's own completion criteria. The system is self-documenting at the moment of activation.
 
+<div align="center">
 <img src="figures/Figure-X3.png" width="75%">
+<br><em>Figure 1. — The Read Memory protocol: eight steps in sequence, executed at every session open before any work begins.</em>
+</div>
 
 #### Layer 5: The Semantic Search Layer
 The four-layer system described above solves continuity within the most recent sessions. What it does not solve — what no recency-based retrieval system can solve — is depth.
