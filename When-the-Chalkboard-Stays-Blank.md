@@ -182,19 +182,18 @@ Three databases in a Notion workspace called the Claude Knowledge and Projects H
 
 The four layers are only valuable if they are actually used at the start of each session. The Read Memory protocol formalizes this. New sessions as well as the keywords "Read Memory" both trigger a specific eight-step sequence, executed in order, before any work begins:
 
-1. **MEMORY.md** — the curated ground truth, always first
-2. **OPEN-COMMITMENTS.md** — active obligations with IDs and statuses
-3. **CE status** — resource levels and last continuing education run headline(s)
+1. [MEMORY.md](http://MEMORY.md) — the curated ground truth, always first
+2. [OPEN-COMMITMENTS.md](http://OPEN-COMMITMENTS.md) — active obligations with IDs and statuses
+3. CE status — resource levels and last continuing education run headline(s)
 4. Newspaper files — up to five most recent daily briefings, newest first
 5. Today's session log — if it exists, it may contain a mid-session checkpoint from an interrupted prior conversation
 6. Session log T-1 — the most recent log before today
 7. Session log T-2 — the next most recent log before today
 8. Semantic query — a meaning-based search across the full session log library and newspaper archive, surfacing the most relevant past sessions and briefings regardless of age
 
-The sequence only takes seconds but the benefits are profound — Claude arrives at every session fully loaded with current context, active obligations, recent history, and the accumulated knowledge of every session that came before it. This sequence is, arguably, the most important single component in the entire system — a deterministic boot sequence for AI context. The checklist is not separate documentation. It lives at the top of MEMORY.md itself, so the first thing Claude reads when executing the protocol is the protocol's own completion criteria. The system is self-documenting at the moment of activation.
+The sequence only takes seconds but the benefits are profound — Claude arrives at every session fully loaded with current context, active obligations, recent history, and the accumulated knowledge of every session that came before it. This sequence is, arguably, the most important single component in the entire system — a deterministic boot sequence for AI context. The checklist is not separate documentation. It lives at the top of [MEMORY.md](http://MEMORY.md) itself, so the first thing Claude reads when executing the protocol is the protocol's own completion criteria. The system is self-documenting at the moment of activation.
 
 #### Layer 5: The Semantic Search Layer
-
 The four-layer system described above solves continuity within the most recent sessions. What it does not solve — what no recency-based retrieval system can solve — is depth.
 
 As the log library grows, important decisions made months ago become invisible. The Read Memory protocol reads T, T-1, and T-2 — the three most recent logs. But the architectural decision made in session twelve may be directly relevant to the problem in session forty-seven. Without a way to surface it, that decision has to be re-made, re-explained, or simply forgotten. The cost accumulates silently.
@@ -203,11 +202,11 @@ The semantic search layer addresses this. Rather than retrieving logs by recency
 
 The technical implementation is deliberately lean. The embedding model — **nomic-embed-text-v1.5** — runs locally via **fastembed**, a lightweight ONNX-based library with no dependency on PyTorch or cloud services. The vector database is **sqlite-vec**, an extension to SQLite that adds nearest-neighbor search. The entire stack runs in a Python virtual environment on the same machine as everything else. There are no external API calls for retrieval and no costs. The model weights are cached after the first download and never leave the device.
 
-The indexer script — **semantic-index.py** — has four commands: **update**, which indexes only new or changed logs; **rebuild**, which reindexes everything from scratch; **query**, which searches the index; and **status**, which reports the current state of the index.
+The indexer script — [**semantic-index.py**](http://semantic-index.py) — has four commands: **update**, which indexes only new or changed logs; **rebuild**, which reindexes everything from scratch; **query**, which searches the index; and **status**, which reports the current state of the index.
 
 The integration with the Read Memory protocol is step 8 — the final step before any work begins. It runs after the recency window is established, so the result is additive: recent logs provide current context, the semantic query provides historical depth. Neither replaces the other.
 
-One detail worth noting: a semantic result snippet is explicitly not a substitute for reading the full log. This distinction is written into the Read Memory checklist in MEMORY.md itself. Retrieval surfaces what to read. Reading is still required *and* performed.
+One detail worth noting: a semantic result snippet is explicitly not a substitute for reading the full log. This distinction is written into the Read Memory checklist in [MEMORY.md](http://MEMORY.md) itself. Retrieval surfaces what to read. Reading is still required *and* performed.
 
 ### Component B: Realtime Active Memory (RAM)
 
@@ -227,11 +226,11 @@ PSM and RAM are not alternatives. They are complements. PSM ensures Claude is ne
 
 The memory system described above was built for continuity — to ensure that each new session inherits the context of every session that came before. As that system matured, a larger possibility became visible.
 
-The session logs, MEMORY.md, the Notion databases, the technical discoveries, the CE log, and the project documentation together constitute something more than a memory system. They constitute a knowledge base — a personal knowledge management system organized around a working relationship with AI rather than around traditional folder hierarchies or tag taxonomies.
+The session logs, [MEMORY.md](http://MEMORY.md), the Notion databases, the technical discoveries, the CE log, and the project documentation together constitute something more than a memory system. They constitute a knowledge base — a personal knowledge management system organized around a working relationship with AI rather than around traditional folder hierarchies or tag taxonomies.
 
-Obsidian, a markdown-based personal knowledge management tool, currently provides the visual layer for this. With its vault pointed at the Claude home directory, every .md document in the system becomes a node in a navigable graph. MEMORY.md links to session logs, which link to specific discoveries, which link to the Notion entries that track the work those discoveries enabled. The wikilink syntax that connects these documents is the same syntax used throughout the files themselves — the graph is not a separate visualization, it is the natural structure of the documents made visible. Adopting consistent wikilink syntax across all .md files is part of the ongoing build — as each document gains its connections, the graph deepens and the knowledge base becomes more navigable and informative.
+Obsidian, a markdown-based personal knowledge management tool, currently provides the visual layer for this. With its vault pointed at the Claude home directory, every .md document in the system becomes a node in a navigable graph. [MEMORY.md](http://MEMORY.md) links to session logs, which link to specific discoveries, which link to the Notion entries that track the work those discoveries enabled. The wikilink syntax that connects these documents is the same syntax used throughout the files themselves — the graph is not a separate visualization, it is the natural structure of the documents made visible. Adopting consistent wikilink syntax across all .md files is part of the ongoing build — as each document gains its connections, the graph deepens and the knowledge base becomes more navigable and informative.
 
-This is the direction the system is moving: from a memory layer that keeps Claude current, toward a knowledge layer that accumulates and connects everything learned over the entire working relationship. The session logs, CE log, Notion databases, and technical discoveries are the raw material. MEMORY.md is the curated core. The knowledge base is where that material becomes permanent, searchable, and connected.
+This is the direction the system is moving: from a memory layer that keeps Claude current, toward a knowledge layer that accumulates and connects everything learned over the entire working relationship. The session logs, CE log, Notion databases, and technical discoveries are the raw material. [MEMORY.md](http://MEMORY.md) is the curated core. The knowledge base is where that material becomes permanent, searchable, and connected.
 
 ### The Newspaper: Temporal Awareness Made Real
 
@@ -259,7 +258,7 @@ The Continuing Education framework is a four-part design that governs when CE re
 
 #### Content Allocation
 
-Allocation is the deliberate decision about where CE spends its attention — what percentage of every run goes to which topic area. It is not arbitrary. It reflects a considered judgment about what is most immediately useful to the work at hand. Users select the topics and allocation for each bucket based on their individual research and working needs. Every user's system is different in this regard. The allocation is defined in a user-editable configuration file — **ce-allocation.md** — which lives in the CE directory alongside the other framework files. Editing that file is all that is required to change what CE researches and how deeply.
+Allocation is the deliberate decision about where CE spends its attention — what percentage of every run goes to which topic area. It is not arbitrary. It reflects a considered judgment about what is most immediately useful to the work at hand. Users select the topics and allocation for each bucket based on their individual research and working needs. Every user's system is different in this regard. The allocation is defined in a user-editable configuration file — [**ce-allocation.md**](http://ce-allocation.md) — which lives in the CE directory alongside the other framework files. Editing that file is all that is required to change what CE researches and how deeply.
 
 Eight buckets divide the full research budget. The bucket structure has two tiers. Three buckets are fixed and not user-editable: Current Work / Active Projects at 30%, Claude's Personal Topics at 5%, and Flex/Standby at 5%. These are core to how the system functions and their allocations do not change. The remaining 60% is distributed across four user-defined buckets — customizable in both subject and percentage, configured entirely by the user to reflect their own working context and interests. The only rule is that the four user-defined buckets must sum to exactly 60%. CE will not run if they do not.
 
@@ -271,7 +270,7 @@ The remaining user-defined allocation is distributed across Claude and Anthropic
 
 The final bucket is Flex and Standby at 5%. This is a curated, always-stocked list of ready topics maintained collaboratively between user and Claude. It serves two purposes. First, it absorbs any remaining units at the end of a run — CE never ends early when standby topics are available. Second, it provides first access for hot topic returns: when a topic ran hot in a prior run and consumed its full allocation before the thread concluded, it gets priority on the next run's Flex units before any other standby topics are considered. Hot topics are never abandoned — they simply continue at the next available opportunity.
 
-The Flex/Standby list is subject to a standing minimum: at least three active topics must be present at all times. This floor is enforced in two ways. First, it is a hard gate at every scheduled MEMORY.md joint review — the review does not close until the list has been checked and replenished if needed. Second, if a CE run exhausts the list below three topics between reviews, the run writes a ⚠️ STANDBY LOW flag to the CE status file, which Read Memory surfaces at the next session open. The list is never allowed to run dry.
+The Flex/Standby list is subject to a standing minimum: at least three active topics must be present at all times. This floor is enforced in two ways. First, it is a hard gate at every scheduled [MEMORY.md](http://MEMORY.md) joint review — the review does not close until the list has been checked and replenished if needed. Second, if a CE run exhausts the list below three topics between reviews, the run writes a ⚠️ STANDBY LOW flag to the CE status file, which Read Memory surfaces at the next session open. The list is never allowed to run dry.
 
 #### Search Timing
 
@@ -291,7 +290,7 @@ CE operates within two resource pools, and both must be healthy before any run b
 
 Pool 1 is Anthropic API credits — the tokens CE itself consumes during background runs. This is monitored programmatically via a direct query to the Anthropic API usage endpoint before every CE run. Hard numbers, automated, no manual checking required.
 
-Pool 2 is Claude.ai subscription capacity — what normal working sessions consume. This was initially assumed to require manual checking. During the design process, a standalone Mac application called Claude Usage was discovered on the system. This app stores its data in a readable plist file in the macOS Group Container and exposes real-time session usage including a live countdown to the next reset sourced directly from Anthropic's servers. Full automation was achieved via AppleScript: open the menubar popover, trigger a data refresh, read the plist. No browser, no manual steps. Both pools are now fully programmable.
+Pool 2 is [Claude.ai](http://Claude.ai) subscription capacity — what normal working sessions consume. This was initially assumed to require manual checking. During the design process, a standalone Mac application called Claude Usage was discovered on the system. This app stores its data in a readable plist file in the macOS Group Container and exposes real-time session usage including a live countdown to the next reset sourced directly from Anthropic's servers. Full automation was achieved via AppleScript: open the menubar popover, trigger a data refresh, read the plist. No browser, no manual steps. Both pools are now fully programmable.
 
 Five rules govern when CE runs:
 
