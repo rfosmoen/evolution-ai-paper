@@ -89,6 +89,14 @@ The session logs documenting the development of this system are the record of th
 
 ---
 
+## License
+
+This work is licensed under [Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/).
+
+You are free to share and adapt the material for non-commercial purposes, with attribution. Commercial use requires explicit written permission from the author. Contact via GitHub.
+
+---
+
 ## Citation
 
 If you reference this work:
