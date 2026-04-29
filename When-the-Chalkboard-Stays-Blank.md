@@ -162,6 +162,12 @@ The logs exist as an audit trail and as a resource for reconstructing context wh
 
 The naming convention is deliberate: YYYY-MM-DD-Topic.md. Date first, always, so alphabetical order is chronological order. The topic suffix is for the human's benefit — the date is what matters to the system.
 
+As the session log library grew, a second structural observation emerged. The Read Memory protocol reads three logs at session open — T, T-1, and T-2. Each is a complete record: transcript, metadata, decisions, and context. For deep sessions, that is a substantial token load, consumed at the start of every conversation before any work begins. The question became whether the full log was always necessary, or whether a structured distillation could deliver equivalent continuity at a fraction of the cost.
+
+The answer was a companion file format: session summaries. Every session close now produces three files. The first is the full session log — unchanged from the original design. The second is a structured summary: a YAML frontmatter block containing topic tags, OC references, session status, and participants, followed by a TL;DR executive summary, key takeaways, actionable steps, and open questions. The third is a JSON representation of the summary, identical in content, structured for machine retrieval and semantic indexing.
+
+The summary file is what Read Memory loads at session open. The full log remains available but is not read by default. This changes the cost profile of session open significantly without sacrificing continuity — the summary is designed to answer the questions that actually arise at session start.
+
 #### Layer 2: MEMORY.md — The Authoritative Ground Truth
 
 Where session logs capture everything, MEMORY.md captures what matters most. This is a curated document maintained deliberately as a reflection of the accumulated shared understanding between user and AI. It contains biographical context, technical preferences, architectural decisions, working style, and the history of the collaboration. It is the document that, when read at the start of a session, brings Claude into the relationship rather than starting from zero.
@@ -190,6 +196,12 @@ The four layers are only valuable if they are actually used at the start of each
 6. Session log T-1 — the most recent log before today
 7. Session log T-2 — the next most recent log before today
 8. Semantic query — a meaning-based search across the full session log library and newspaper archive, surfacing the most relevant past sessions and briefings regardless of age
+
+Steps 6 and 7 now load summary files rather than full logs. This is a deliberate architectural decision with a documented fallback. If a summary file does not exist for a given session — because the session predates the summary format, or because the close protocol was not executed — the full log is read instead. No session is ever inaccessible.
+
+For queries that cannot be answered from a summary, a three-tier retrieval protocol governs what happens next. Tier 1 is the summary itself. If that is insufficient, Tier 2 uses the topic tags in the summary's YAML frontmatter to locate an HTML anchor embedded in the full log — a marker placed at the exact line where that topic first appears in the transcript. Claude reads from that anchor forward using a targeted file offset, never loading content that is not relevant. If the anchor search fails, Tier 3 reads the entire full log. The tiers ensure that retrieval is always as efficient as possible, while guaranteeing that no information is ever unreachable.
+
+The HTML anchors are invisible in any markdown renderer. They are written into the transcript during session close as part of the same Skill that produces the summary and JSON files. The system is self-maintaining — no manual tagging is required.
 
 The sequence only takes seconds but the benefits are profound — Claude arrives at every session fully loaded with current context, active obligations, recent history, and the accumulated knowledge of every session that came before it. This sequence is, arguably, the most important single component in the entire system — a deterministic boot sequence for AI context. The checklist is not separate documentation. It lives at the top of [MEMORY.md](http://MEMORY.md) itself, so the first thing Claude reads when executing the protocol is the protocol's own completion criteria. The system is self-documenting at the moment of activation.
 
@@ -592,6 +604,8 @@ The table below outlines the current state of memory implementation across major
 | Newspaper | Between-sessions daily AI briefing |
 | Continuing Education | Structured background research framework |
 | Read Memory Protocol | Session-start activation sequence |
+| Session Summaries | Structured distillation of each session — replaces full log at session open |
+| Three-Tier Retrieval | Summary → anchor seek → full log — efficient retrieval with guaranteed completeness |
 | Semantic Search Layer | Meaning-based retrieval across full log history |
 | Realtime Active Memory (RAM) | Per-message semantic retrieval — live context activation throughout every session |
 
